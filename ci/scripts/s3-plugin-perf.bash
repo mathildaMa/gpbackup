@@ -87,7 +87,7 @@ time psql -d tpchdb -c "CREATE TABLE lineitem_5 AS SELECT * FROM lineitem DISTRI
 
 log_file=/tmp/gpbackup.log
 print_header "GPBACKUP with ${SCALE_FACTOR} GB of data for each table"
-time gpbackup --dbname tpchdb --plugin-config ~/s3_config.yaml | tee "\$log_file"
+time gpbackup --dbname tpchdb --no-compression --plugin-config ~/s3_config.yaml | tee "\$log_file"
 echo
 timestamp=\$(head -5 "\$log_file" | grep "Backup Timestamp " | grep -Eo "[[:digit:]]{14}")
 print_header "GPRESTORE with ${SCALE_FACTOR} GB of data for each table"
