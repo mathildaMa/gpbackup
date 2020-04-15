@@ -288,6 +288,8 @@ func (v View) FQN() string {
 // This function retrieves both regular views and materialized views.
 // Materialized views were introduced in GPDB 7 and backported to GPDB 6.2.
 func GetAllViews(connectionPool *dbconn.DBConn) (regularViews []View, materializedViews []MaterializedView) {
+	connectionPool.MustExec("SAVEPOINT gpbackup_get_views")
+	defer connectionPool.MustExec("ROLLBACK TO SAVEPOINT gpbackup_get_views")
 	selectClause := `
 	SELECT
 		c.oid AS oid,

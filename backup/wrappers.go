@@ -42,6 +42,7 @@ func initializeConnectionPool() {
 	InitializeMetadataParams(connectionPool)
 	for connNum := 0; connNum < connectionPool.NumConns; connNum++ {
 		connectionPool.MustExec("SET application_name TO 'gpbackup'", connNum)
+		// Begin Transaction
 		connectionPool.MustBegin(connNum)
 		SetSessionGUCs(connNum)
 	}
