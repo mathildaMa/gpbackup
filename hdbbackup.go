@@ -1,4 +1,4 @@
-// +build gpbackup
+// +build hdbbackup
 
 package main
 
@@ -12,8 +12,8 @@ import (
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:     "gpbackup",
-		Short:   "gpbackup is the parallel backup utility for Greenplum",
+		Use:     "hdbbackup",
+		Short:   "hdbbackup is the parallel backup utility for HDB",
 		Args:    cobra.NoArgs,
 		Version: GetVersion(),
 		Run: func(cmd *cobra.Command, args []string) {

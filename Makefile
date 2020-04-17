@@ -5,7 +5,8 @@ $(error Environment variable GOPATH is not set)
 endif
 
 .DEFAULT_GOAL := all
-BACKUP=gpbackup
+#BACKUP=gpbackup
+BACKUP=hdbbackup
 RESTORE=gprestore
 HELPER=gpbackup_helper
 BIN_DIR=$(shell echo $${GOPATH:-~/go} | awk -F':' '{ print $$1 "/bin"}')
@@ -72,7 +73,7 @@ coverage :
 		@./show_coverage.sh
 
 build :
-		$(GO_BUILD) -tags '$(BACKUP)' -o $(BIN_DIR)/$(BACKUP) -ldflags "-X $(BACKUP_VERSION_STR)"
+		$(GO_BUILD) -tags '$(BACKUP)' -o $(BIN_DIR)/$(BACKUP) -ldflags "-X $(BACKUP_VERSION_STR)" hdbbackup.go
 		$(GO_BUILD) -tags '$(RESTORE)' -o $(BIN_DIR)/$(RESTORE) -ldflags "-X $(RESTORE_VERSION_STR)"
 		$(GO_BUILD) -tags '$(HELPER)' -o $(BIN_DIR)/$(HELPER) -ldflags "-X $(HELPER_VERSION_STR)"
 
